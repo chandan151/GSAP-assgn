@@ -7,6 +7,26 @@ function locomotive() {
         smooth: true,
     });
     locoScroll.on("scroll", ScrollTrigger.update);
+
+    ScrollTrigger.scrollerProxy("#main", {
+        scrollTop(value) {
+            return arguments.length
+                ? locoScroll.scrollTo(value, 0, 0)
+                : locoScroll.scroll.instance.scroll.y;
+        },
+        getBoundingClientRect() {
+            return {
+                top: 0,
+                left: 0,
+                width: window.innerWidth,
+                height: window.innerHeight,
+            };
+        },
+
+        pinType: document.querySelector("#main").style.transform
+            ? "transform"
+            : "fixed",
+    });
 }
 
 const canvas = document.querySelector("canvas");
@@ -19,8 +39,8 @@ canvas.height = window.innerHeight;
 
 
 function files(index) {
-        var data = 
-            `./imgs/male0001.png
+    var data =
+        `./imgs/male0001.png
              ./imgs/male0002.png
              ./imgs/male0003.png
              ./imgs/male0004.png
@@ -320,7 +340,7 @@ function files(index) {
              ./imgs/male0298.png
              ./imgs/male0299.png
              ./imgs/male0300.png`;
-        return data.split("\n")[index];
+    return data.split("\n")[index];
 }
 
 const frameCount = 300;
