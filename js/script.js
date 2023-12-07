@@ -1,5 +1,4 @@
 
-
 function locomotive() {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -336,3 +335,27 @@ for (let i = 0; i < frameCount; i++) {
     img.src = files(i);
     images.push(img);
 }
+
+gsap.to(imageSeq, {
+    frame: frameCount - 1,
+    snap: "frame",
+    ease: `none`,
+    scrollTrigger: {
+        scrub: 0.15,
+        trigger: `#page>canvas`,
+        start: `top top`,
+        end: `600% top`,
+        scroller: `#main`,
+    },
+    onUpdate: render,
+});
+
+gsap.to("#page1", {
+    scrollTrigger: {
+        trigger: `#page1`,
+        start: `top top`,
+        end: `bottom top`,
+        pin: true,
+        scroller: `#main`,
+    },
+});
